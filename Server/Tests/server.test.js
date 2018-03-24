@@ -92,3 +92,27 @@ describe('GET /todos/:id', () => {
     .end(done);
   });
 });
+
+  describe('DELETE /todos',() => {
+    it(`should delete todo`, (done) => {
+      request(app)
+      .delete(`/todos/${todos[0]._id.toHexString()}`)
+      .expect(200)
+      .end(done);
+    });
+
+    it(`should return 401 for invalid ObjectId`, (done) => {
+      request(app)
+      .delete('/todos/123')
+      .expect(401)
+      .end(done);
+    });
+
+    it(`should return 404 for todo not found`, (done) => {
+      var id = new ObjectId().toHexString();
+      request(app)
+      .delete(`/todos/${id}`)
+      .expect(404)
+      .end(done);
+    });
+  });
