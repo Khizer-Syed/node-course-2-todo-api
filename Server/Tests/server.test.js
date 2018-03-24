@@ -98,6 +98,9 @@ describe('GET /todos/:id', () => {
       request(app)
       .delete(`/todos/${todos[0]._id.toHexString()}`)
       .expect(200)
+      .expect((res) => {
+        expect(res.body.todo.text).toBe(todos[0].text);
+      })
       .end(done);
     });
 
