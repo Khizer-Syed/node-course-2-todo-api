@@ -161,7 +161,7 @@ describe('PATCH /todos', () => {
     .expect(200)
     .expect((res) => {
       expect(res.body.todo.completed).toBe(completed);
-      expect(res.body.todo.completedAt).toBe(null);
+      expect(res.body.todo.completedAt).toNotExist();
     }).end((err, res) => {
       if (err) return done(err);
       Todo.findById(id).then((todo) => {
